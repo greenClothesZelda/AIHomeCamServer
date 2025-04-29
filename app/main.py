@@ -1,8 +1,9 @@
 # FastAPI 어플리케이션 진입점
 from fastapi import FastAPI
 from app.routers.video import router as video_router
-from app.config import settings
+from app.config import get_settings
 
+settings = get_settings()
 # 애플리케이션 생성
 app = FastAPI(
     title=settings.APP_NAME,

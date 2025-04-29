@@ -1,16 +1,22 @@
 # 환경 변수 및 설정
 from pydantic_settings import BaseSettings
+from functools import lru_cache
 
 class Settings(BaseSettings):
     APP_NAME: str = "VideoChatServer"
     VERSION: str = "0.1.0"
-    # 영상 저장 디렉토리
     MEDIA_DIR: str = "./media/videos"
-    # 프레임 추출 간격 (N 프레임마다)
-    FRAME_INTERVAL: int = 300
+    FRAME_INTERVAL: int = 30
+    FRAME_STEP: int = 10
+    FRAME_HEIGHT: int = 480
+    FRAME_WIDTH: int = 640
 
     class Config:
         env_file = ".env"
-        extra = "allow"
 
-settings = Settings()
+@lru_cache()
+def get_settings() -> Settings:
+    """
+    싱글톤 패턴으로 Settings 인스턴스를 공유하기 위한 함수
+    """
+    return Settings()
