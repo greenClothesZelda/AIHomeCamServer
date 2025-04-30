@@ -1,3 +1,10 @@
+'''
+logger 사용방법
+
+1. 의존성 주입
+from app.utils.logging import logger
+2. logger.info("로그 메시지")
+'''
 import logging
 import os
 

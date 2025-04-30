@@ -1,3 +1,13 @@
+'''
+.env 변수 설정
+사용법
+1.의존성 주입
+from app.config import get_settings
+2.setting변수 설정
+settings = get_settings()
+3.변수 사용
+settings.MEDIA_DIR
+'''
 # 환경 변수 및 설정
 from pydantic_settings import BaseSettings
 from functools import lru_cache

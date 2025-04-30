@@ -1,7 +1,8 @@
+
+
 import cv2
 import os
 from app.config import get_settings
-import numpy as np
 
 settings = get_settings()
 
