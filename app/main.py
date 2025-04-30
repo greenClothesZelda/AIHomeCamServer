@@ -1,6 +1,7 @@
 # FastAPI 어플리케이션 진입점
 from fastapi import FastAPI
 from app.routers.video import router as video_router
+from app.routers.message import router as message_router
 from app.config import get_settings
 
 settings = get_settings()
@@ -14,7 +15,13 @@ app = FastAPI(
 app.include_router(
     video_router,
     prefix="/video",
-    tags=["video"],
+    tags=["api"],
+)
+
+app.include_router(
+    message_router,
+    prefix="/message",
+    tags=["api"],
 )
 
 @app.get("/health", tags=["health"])

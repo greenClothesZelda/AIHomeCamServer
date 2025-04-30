@@ -15,7 +15,7 @@ async def get_video():
     if os.path.exists(video_path):
         imgs = get_frames("sample.mp4")
         logger.info(f"Video file img extracted")
-        return Response(content="video text", media_type='text/plain', status_code=203)
+        return Response(content="video text", media_type='text/plain', status_code=200)
         #return FileResponse(video_path, media_type='video/mp4')
     else:
         return Response(content=f"Video {video_path} not found.", status_code=404)
