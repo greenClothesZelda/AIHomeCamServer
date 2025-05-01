@@ -1,5 +1,5 @@
 #
-from envs.AIPCA.Lib.functools import lru_cache
+from functools import lru_cache
 from fastapi import APIRouter, Response
 from app.config import get_settings
 from app.utils.logging import logger
@@ -43,7 +43,7 @@ class Message:
             logger.error(f"Error retrieving message: {e}")
             return None
 
-@lru_cache()
+@lru_cache
 def get_message() -> Message:
     """
     싱글톤 패턴으로 Message 인스턴스를 공유하기 위한 함수
