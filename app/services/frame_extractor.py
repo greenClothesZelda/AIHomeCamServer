@@ -6,8 +6,15 @@ from app.config import get_settings
 
 settings = get_settings()
 
+'''
+영상에서 프레임을 추출하는 함수
+get_frames(name_video:str) -> list
+name_video: str : 영상 파일 주소
+기본적으로 /media/videos/가 있음
+해당 directory에 존재하는 영상 이름만 넣어주면 됨
+'''
 
-def get_frames(name_video):
+def get_frames(name_video:str):
     video_path = os.path.join(settings.MEDIA_DIR, name_video)
 
     if not os.path.exists(video_path):

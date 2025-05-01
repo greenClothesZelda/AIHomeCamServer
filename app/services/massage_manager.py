@@ -7,7 +7,12 @@ import os
 import json
 
 settings = get_settings()
-
+'''
+push용 message 정의
+add_message의 인자로 들어온 메시지를 json형태로 변환하여 message_queue에 추가
+get_message로 받아오고
+add_message(str) 만 사용하면 됩니다.
+'''
 class Message:
     def __init__(self):
         self.message_queue = []
