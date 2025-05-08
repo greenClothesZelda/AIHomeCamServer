@@ -5,6 +5,7 @@ from app.config import get_settings
 from app.utils.logging import logger
 import os
 import json
+from datetime import datetime
 
 settings = get_settings()
 '''
@@ -18,7 +19,13 @@ class Message:
         self.message_queue = []
 
     def convert_to_json_message(self, message: str)->str:
-        data = {"message": message}
+        # 현재 시간 가져오기
+        now = datetime.now()
+
+        # 원하는 형식으로 시간 출력
+        formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
+
+        data = {"message": message, "date": formatted_time}
         json_data = json.dumps(data)
         return json_data
 
