@@ -5,6 +5,7 @@ from starlette.middleware.cors import CORSMiddleware
 from app.routers.video import router as video_router
 from app.routers.message import router as message_router
 from app.routers.socket_cam import router as socket_router
+from app.routers.voice import router as voice_router
 from app.config import get_settings
 
 settings = get_settings()
@@ -40,6 +41,11 @@ app.include_router(
     socket_router,
     prefix="/socket",
     tags=["socket"],
+)
+app.include_router(
+    voice_router,
+    prefix="/voice",
+    tags=["voice"],
 )
 
 @app.get("/health", tags=["health"])
