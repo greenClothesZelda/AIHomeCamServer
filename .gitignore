@@ -5,3 +5,4 @@ videos
 logs
 test
 app/models/media
+uploaded_audios

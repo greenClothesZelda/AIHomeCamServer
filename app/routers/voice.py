@@ -31,8 +31,11 @@ async def upload_audio(file: UploadFile = File(...)):
 
         # WebSocket 클라이언트에게 알림 전송
         #await websocket_manager.broadcast_audio(file_path)
-
-        return Response(status_code=204)
+        logger.info("WebSocket 클라이언트에게 오디오 파일 전송 생략")
+        # 오디오 파일을 처리하는 함수 호출
+        os.remove(file_path)
+        logger.info(f"오디오 파일 삭제 완료: {file_path}")
+        return Response(status_code=200)
     except Exception as e:
         logger.error(f"파일 저장 중 오류 발생: {e}")
         raise HTTPException(status_code=500, detail="파일 저장 중 오류가 발생했습니다.")
