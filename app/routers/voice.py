@@ -14,7 +14,7 @@ router = APIRouter()
 UPLOAD_DIR = "uploaded_audios"  # 오디오 파일 저장 디렉토리
 os.makedirs(UPLOAD_DIR, exist_ok=True)  # 디렉토리가 없으면 생성
 
-@router.post("/upload-audio/")
+@router.post("/upload-audio")
 async def upload_audio(file: UploadFile = File(...)):
     """
     클라이언트로부터 오디오 파일을 업로드받아 서버에 저장합니다.

@@ -18,7 +18,7 @@ async def message():
         if message:
             return Response(content=message, media_type='application/json', status_code=200)
         else:
-            return Response(content="No messages in queue.", status_code=204)
+            return Response(status_code=204)
     except Exception as e:
         logger.error(f"Error retrieving message: {e}")
         return Response(content="Internal Server Error", status_code=500)
