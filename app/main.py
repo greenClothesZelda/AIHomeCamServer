@@ -8,6 +8,8 @@ from app.routers.socket_cam import router as socket_router
 from app.routers.voice import router as voice_router
 from app.config import get_settings
 
+from app.utils.logging import logger
+
 settings = get_settings()
 
 
@@ -53,4 +55,5 @@ async def health_check():
     """
     서버 상태 확인용 엔드포인트
     """
+    logger.info("Health check endpoint called")
     return {"status": "ok", "version": settings.VERSION}
