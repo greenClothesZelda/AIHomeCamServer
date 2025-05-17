@@ -9,7 +9,7 @@ from app.utils.logging import logger
 settings = get_settings()
 router = APIRouter()
 
-band_list = []
+area_list = []
 
 @router.get("/video")
 async def get_video():
@@ -23,19 +23,22 @@ async def get_video():
         return Response(content=f"Video {video_path} not found.", status_code=404)
 
 
-@router.post("/setting/band")
-async def get_band(band_1: int, band_2: int, band_3: int, band_4: int):
+@router.post("/setting/area")
+async def get_area(x1: float, y1: float, x2: float, y2: float):
     """
-    Band 설정을 가져옵니다.
-    """
-    band = [band_1, band_2, band_3, band_4]
-    logger.info(f"Recieved Band {band}")
-    band_list.append(band)
-    return Response(content="Band setting received", status_code=200)
+    저장된 Area 목록을 가져옵니다.
 
-@router.get("/setting/band")
-async def get_band_list():
+    [x1, y1, x2, y2]
+    x1, y1, x2, y2 = 0 ~ 1
     """
-    Band 리스트를 JSON 형태로 반환합니다.
+    area = [x1, y1, x2, y2]
+    logger.info(f"Recieved Area {area}")
+    area_list.append(area)
+    return Response(content="Area setting received", status_code=200)
+
+@router.get("/setting/area")
+async def get_area_list():
     """
-    return JSONResponse(content={"band_list": band_list}, status_code=200)
+    저장된 Area 목록을 JSON 형태로 반환합니다.
+    """
+    return JSONResponse(content={"area_list": area_list}, status_code=200)
