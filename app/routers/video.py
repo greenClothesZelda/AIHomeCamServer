@@ -1,10 +1,12 @@
 # WebSocket 및 HTTP 엔드포인트 정의
-from fastapi import APIRouter, Response, Request
+from fastapi import APIRouter, Response, Form
 from app.config import get_settings
 from fastapi.responses import FileResponse, JSONResponse
 import os
 from app.services.frame_extractor import get_frames
 from app.utils.logging import logger
+
+from ..baseModel.area import AreaRect
 
 settings = get_settings()
 router = APIRouter()
@@ -24,21 +26,18 @@ async def get_video():
 
 
 @router.post("/setting/area")
-async def get_area(x1: float, y1: float, x2: float, y2: float):
+async def set_area(x1: float = Form(...), x2: float = Form(...), y1: float = Form(...), y2: float = Form(...)):
     """
-    저장된 Area 목록을 가져옵니다.
-
-    [x1, y1, x2, y2]
-    x1, y1, x2, y2 = 0 ~ 1
+    Area rect를 받아 저장합니다.
     """
-    area = [x1, y1, x2, y2]
-    logger.info(f"Recieved Area {area}")
-    area_list.append(area)
+    area_rect = AreaRect(x1=x1, x2=x2, y1=y1, y2=y2)
+    logger.info(f"Recieved Area {area_rect}")
+    area_list.append(area_rect.model_dump())
     return Response(content="Area setting received", status_code=200)
 
 @router.get("/setting/area")
 async def get_area_list():
     """
-    저장된 Area 목록을 JSON 형태로 반환합니다.
+    저장된 Area 목록을 반환합니다.
     """
-    return JSONResponse(content={"area_list": area_list}, status_code=200)
+    return JSONResponse(content={"count": len(area_list), "result": area_list}, status_code=200)
