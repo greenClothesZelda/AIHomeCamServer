@@ -5,7 +5,7 @@ from app.config import get_settings
 from app.utils.logging import logger
 import os
 import json
-from datetime import datetime
+import time
 
 settings = get_settings()
 '''
@@ -18,20 +18,22 @@ class Message:
     def __init__(self):
         self.message_queue = []
 
-    def convert_to_json_message(self, message: str)->str:
-        # 현재 시간 가져오기
-        now = datetime.now()
+    def convert_to_json_message(self, message: str, message_type: int = None, message_time:int = None)->json:
 
-        # 원하는 형식으로 시간 출력
-        formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
+        # message_time이 None이면 현재 시간으로 설정
+        if message_time is None:
+            message_time = int(time.time())
 
-        data = {"message": message, "date": formatted_time}
+        if message_type is None:
+            message_type = 0
+
+        data = {"message": message, "message_type": message_type, "date": message_time}
         json_data = json.dumps(data)
         return json_data
 
-    def add_message(self, message: str):
+    def add_message(self, message: str, message_type: int = None, message_time: int = None):
         try:
-            json_data = self.convert_to_json_message(message)
+            json_data = self.convert_to_json_message(message, message_type, message_time)
             self.message_queue.append(json_data)
             logger.info(f"Message added: {json_data}")
         except Exception as e:

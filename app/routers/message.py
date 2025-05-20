@@ -24,12 +24,12 @@ async def message():
         return Response(content="Internal Server Error", status_code=500)
 
 @router.post("/message")
-async def message_post(message: str):
+async def message_post(message: str, message_type: int = None, message_time: int = None):
     """
     메시지 전송 엔드포인트
     """
     try:
-        messages.add_message(message)
+        messages.add_message(message, message_type, message_time)
         return Response(content="Message added to queue.", status_code=200)
     except Exception as e:
         logger.error(f"Error adding message: {e}")
