@@ -3,14 +3,15 @@ import uvicorn
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
+from app.baseModel.area import AreaRect
 from app.routers.video import router as video_router
-from app.routers.message import router as message_router
+from app.routers.message import router as message_router, messages
 from app.routers.socket_cam import router as socket_router
 from app.routers.voice import router as voice_router
 from app.config import get_settings
 
 from app.utils.logging import logger
-
+import requests
 settings = get_settings()
 
 

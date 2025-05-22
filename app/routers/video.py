@@ -41,3 +41,23 @@ async def get_area_list():
     저장된 Area 목록을 반환합니다.
     """
     return JSONResponse(content={"count": len(area_list), "result": area_list}, status_code=200)
+
+@router.get("/clear")
+async def clear():
+    """
+    저장된 Area 목록을 초기화합니다.
+    """
+    area_list.clear()
+    return Response(content="Area list cleared", status_code=200)
+
+@router.post("/clear")
+async def clear_post(index: int):
+    """
+    저장된 Area 목록을 초기화합니다.
+    """
+    try:
+        area_list.pop(index)
+        return Response(content="Area list cleared", status_code=200)
+    except Exception as e:
+        logger.error(f"Error clearing area list: {e}")
+        return Response(content="Internal Server Error", status_code=500)
