@@ -23,6 +23,16 @@ async def get_audio():
 
     return Response(status_code=200)
 
+@router.post("/audio")
+async def post_audio(index: str):
+    """
+    오디오 파일을 업로드합니다.
+    """
+    file_path = os.path.join("videos", "sample_audio", index,".mp3")
+    await websocket_manager.broadcast_audio(file_path)
+
+    return Response(status_code=200)
+
 @router.post("/upload-audio")
 async def upload_audio(file: UploadFile = File(...)):
     """
