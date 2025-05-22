@@ -51,7 +51,7 @@ async def clear():
     return Response(content="Area list cleared", status_code=200)
 
 @router.post("/clear")
-async def clear_post(index: int):
+async def clear_post(index: int = Form(...)):
     """
     저장된 Area 목록을 초기화합니다.
     """
